@@ -126,7 +126,7 @@ to fix this use de following code:
 
 ```py
 df_users["Last_name"] = df_users["Last_name"].apply(
-    lambda element: element[0:1].upper() + element[1:] if type(element) == str else element
+    lambda  element: element.capitalize() if  type(element) ==  str  else  element
 )
 ```
 > df_users
@@ -143,7 +143,7 @@ df_users["Last_name"] = df_users["Last_name"].apply(
 9      242     Emily   Johnson   19    777-888-9999    emily@hotmail.com
 ```
 
-The [apply](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.apply.html) function is used to apply a `lambda` function to each element in a column of a dataset, in this example, it is used to apply a function to the `Last_name` column that capitalize the first letter of each string with the syntax `element[0:1].upper() + element[1:]` but we have to check that the current value is of type `string`, if it's not then we have to return the same value, this can be done with the syntax `if type(element) == str else element`.
+The [apply](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.apply.html) function is used to apply a `lambda` function to each element in a column of a dataset, in this example, it is used to apply a function to the `Last_name` column that capitalizes the first letter of each string with the `capitalize()` method but we have to check that the current value is of type `string`, if it's not then we have to return the same value, this can be done with the conditional `if type(element) == str else element`.
 
 ### 4. Set a unique pattern for a column
 
@@ -170,7 +170,7 @@ df_users["Phone"] = df_users["Phone"].apply(
 9      242     Emily   Johnson   19  777-888-9999    emily@hotmail.com
 ```
 
-Here we want to establish the pattern `000-000-0000` on all the values in the `Phone` column, for this first, we have to delete all the values that are not a number with the [replace](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.replace.html) function and the syntax `r"[^0-9]",  '', regex=True`, after this, we want to set this pattern on all the phone numbers in this column, for this, we use a `lambda` function and the f-string (format string) expression `f"{item[0:3]}-{item[3:6]}-{item[6:]}"` which is used to embed expressions inside string literals, but we do this only if the current value has a `string` type and have ten characters, as you can see in the index `5` of the `Phone` column we have a `None` value and in the index index `7` of the same column we have a number with only 9 digits, none of these characters meet the condition so they are replaced by a `None` value that will be removed later.
+Here we want to establish the pattern `000-000-0000` on all the values in the `Phone` column, for this first, we have to delete all the values that are not a number with the [replace](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.replace.html) function and the syntax `r"[^0-9]",  '', regex=True`, after this, we want to set this pattern on all the phone numbers in this column, for this, we use a `lambda` function and the f-string (format string) expression `f"{item[0:3]}-{item[3:6]}-{item[6:]}"` which is used to embed expressions inside string literals, but we do this only if the current value has a `string` type and have ten characters, as you can see in the index `5` of the `Phone` column we have a `None` value and in the index `7` of the same column we have a number with only 9 digits, none of these values meet the condition so they are replaced by a `None` value that will be removed later.
 
 ### 5. Delete rows with None values
 
